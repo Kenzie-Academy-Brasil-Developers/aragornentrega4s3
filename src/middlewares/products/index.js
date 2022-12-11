@@ -32,33 +32,35 @@ export const productsMiddlewaresVerifyBody =
 
     req.validatedBody = validatedBody;
 
-    // const name = validatedBody.name;
+    const name = validatedBody.name;
 
-    // const queryResponseName = await database.query(
-    //   `
-    //     select * from products
-    //     where name = ($1)
-    //     `,
-    //   [name]
-    // );
+    const queryResponseName = await database.query(
+      `
+        select * from products
+        where name = ($1)
+        `,
+      [name]
+    );
 
-    // const numberOflines1 = queryResponseName.rowCount;
+    const numberOflines1 = queryResponseName.rowCount;
 
-    // if (numberOflines1 !== 0) {
-    //   throw new AppError("Produto já cadastrado", 400);
-    // }
+    if (numberOflines1 !== 0) {
+      throw new AppError("Produto já cadastrado", 400);
+    }
 
-    // const categoryId = validatedBody.category_id;
-    // const queryResponse = await database.query(
-    //   `
-    //     select * from categories
-    //     where id = ($1)
-    //     `,
-    //   [categoryId]
-    // );
-    // const numberOflines = queryResponse.rowCount;
-    // if (numberOflines === 0) {
-    //   throw new AppError("Category_id não encontrado", 400);
-    // }
+    if(validatedBody.category_id){
+      const categoryId = validatedBody.category_id;
+      const queryResponse = await database.query(
+        `
+          select * from categories
+          where id = ($1)
+          `,
+        [categoryId]
+      );
+      const numberOflines = queryResponse.rowCount;
+      if (numberOflines === 0) {
+        throw new AppError("Category_id não encontrado", 400);
+      }
+    }
     next();
   };

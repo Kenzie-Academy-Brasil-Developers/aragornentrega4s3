@@ -16,7 +16,6 @@ export const productsControllers = {
         return response.status(status).json(data)
     },
     update: async(request, response) =>{
-        console.log('oi estou no controllers prod')
         const [status, data] = await updateProductServices(request.validatedBody, request.validatedId)
         return response.status(status).json(data)
     },
