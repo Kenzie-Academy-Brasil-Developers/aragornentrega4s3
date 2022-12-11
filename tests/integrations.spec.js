@@ -49,8 +49,7 @@ describe("Testes rota /categories", () => {
     expect(response.status).toBe(200);
     expect(response.body.name).toContain("Atualizada");
   });
-})
-
+});
 
 describe("Testes rota /products", () => {
   it("Testando criacao de produto", async () => {
@@ -115,7 +114,6 @@ describe("Testes rota /products", () => {
     expect(response.status).toBe(204);
   });
 });
-
 
 describe("Testando casos de erro nas rotas /categories e /products", () => {
   afterAll(async () => {

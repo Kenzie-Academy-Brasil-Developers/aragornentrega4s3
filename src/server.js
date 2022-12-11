@@ -1,8 +1,11 @@
-import app from "./app";
-import "dotenv/config"
 import { startDatabase } from "./database";
+import app from "./app";
 
-export default app.listen(3000, () => {
-    startDatabase();
-    console.log("Server running");
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  startDatabase();
+  console.log(`Server running on http://localhost:${PORT}`);
 });
+
+export default app

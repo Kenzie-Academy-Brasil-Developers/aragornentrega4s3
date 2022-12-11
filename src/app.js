@@ -1,7 +1,13 @@
-import express from "express"
+import "express-async-errors";
+import express from "express";
+import "dotenv/config";
+import { routesglobal } from "./routers/index.js";
+import { errorHandler } from "./errors/index.js";
 
-const app = express()
+const app = express();
 
-app.use(express.json())
+app.use(express.json());
+app.use(routesglobal);
+app.use(errorHandler);
 
-export default app
+export default app;
