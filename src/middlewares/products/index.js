@@ -28,8 +28,6 @@ export const productsMiddlewaresVerifyBody =
       abortEarly: false,
     });
 
-    console.log('oi estou no mid ver body')
-
     req.validatedBody = validatedBody;
 
     const name = validatedBody.name;

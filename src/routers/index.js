@@ -7,3 +7,5 @@ export const routesglobal = Router();
 routesglobal.use("/categories", categoriesRouter);
 
 routesglobal.use('/products', productsRouter)
+
+

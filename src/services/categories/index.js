@@ -1,13 +1,12 @@
 import "dotenv/config";
 import database from "../../database";
 
-export const readCategorieServices = async () => {
-  const { rows } = await database.query("select * from Categories;");
-  return [200, rows];
-};
-
-export const createCategorieServices = async (body) => {
-
+export const categoriesServices = {
+  index: async () => {
+    const { rows } = await database.query("select * from Categories;");
+    return [200, rows];
+  },
+  create: async (body) => {
     const { name } = body;
     const { rows } = await database.query(
       `
@@ -19,25 +18,19 @@ export const createCategorieServices = async (body) => {
       [name]
     );
     return [201, rows[0]];
-
-};
-
-export const readIdCategorieServices = async (id) => {
-  const { rows } = await database.query(
-        `
-        select * from categories
-        where id = ($1)
-        `,
-        [id]
-  );
-
-  return [200, rows[0]];
-};
-
-export const updateCategorieServices = async(body, id) =>{
-  
-    const {name} = body;
-
+  },
+  read: async (id) => {
+    const { rows } = await database.query(
+      `
+          select * from categories
+          where id = ($1)
+          `,
+      [id]
+    );
+    return [200, rows[0]];
+  },
+  update: async (body, id) => {
+    const { name } = body;
     const { rows } = await database.query(
       `
       update categories 
@@ -46,21 +39,17 @@ export const updateCategorieServices = async(body, id) =>{
       returning *;
       `,
       [name, id]
-    )
-
-    return [200, rows[0]]
-
-}
-
-export const deleteCategorieServices = async(id) =>{
-  const { rows } = await database.query(
-    `
-    delete from categories 
-    where id = ($1);
-    `,
-    [id]
-  )
-  return [204, {}]
-}
-
-
+    );
+    return [200, rows[0]];
+  },
+  delete: async (id) => {
+    const { rows } = await database.query(
+      `
+      delete from categories 
+      where id = ($1);
+      `,
+      [id]
+    );
+    return [204, {}];
+  },
+};
